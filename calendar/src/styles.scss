@@ -1,0 +1,130 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Light Theme Variables (default) */
+:root {
+  --primary-color: #1976d2;
+  --primary-light: #e3f2fd;
+  --primary-dark: #0d47a1;
+  --accent-color: #ff4081;
+  --text-color: rgba(0, 0, 0, 0.87);
+  --text-light: rgba(0, 0, 0, 0.6);
+  --background-color: #f5f5f5;
+  --card-background: #ffffff;
+  --input-background: #ffffff;
+  --border-color: #e0e0e0;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --hover-bg: #f0f7ff;
+  --success-color: #4caf50;
+  --warning-color: #ff9800;
+  --error-color: #f44336;
+}
+
+/* Dark Theme Variables */
+.dark-theme {
+  --primary-color: #90caf9;
+  --primary-light: #334a66;
+  --primary-dark: #64b5f6;
+  --accent-color: #ff80ab;
+  --text-color: rgba(255, 255, 255, 0.87);
+  --text-light: rgba(255, 255, 255, 0.6);
+  --background-color: #303030;
+  --card-background: #424242;
+  --input-background: #ffffff;
+  --border-color: #5f5f5f;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --hover-bg: #3a3a3a;
+  --success-color: #81c784;
+  --warning-color: #ffb74d;
+  --error-color: #e57373;
+  
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+/* Apply theme variables to material component styles */
+.dark-theme {
+  .mat-mdc-card {
+    background-color: var(--card-background);
+    color: var(--text-color);
+  }
+  
+  .mat-calendar-body-cell-content {
+    color: var(--text-color);
+  }
+  
+  .mat-calendar-body-selected {
+    background-color: var(--primary-color);
+    color: white;
+  }
+  
+  .mat-form-field-outline {
+    color: var(--border-color);
+  }
+  
+  .mat-form-field-label {
+    color: var(--text-light);
+  }
+  
+  .mat-input-element {
+    color: var(--text-color);
+  }
+  
+  .mat-datepicker-content {
+    background-color: var(--card-background);
+    color: var(--text-color);
+  }
+}
+
+/* Common Element Styles */
+.calendar-container {
+  background-color: var(--card-background);
+}
+
+.calendar-header {
+  background-color: var(--card-background);
+}
+
+.day-cell {
+  background-color: var(--card-background);
+  border-color: var(--border-color);
+  
+  &.weekend {
+    background-color: var(--background-color);
+  }
+  
+  &.today {
+    background-color: var(--primary-light);
+  }
+}
+
+.appointment-form {
+  background-color: var(--card-background);
+  color: var(--text-color);
+}
+
+.time-slot {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  
+  &:hover {
+    background-color: var(--hover-bg);
+  }
+  
+  &.selected {
+    background-color: var(--primary-color);
+    color: white;
+  }
+}

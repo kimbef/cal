@@ -1,0 +1,202 @@
+.appointment-page {
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.appointment-form {
+  padding: 16px;
+  background-color: var(--card-background);
+  color: var(--text-color);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px var(--shadow-color);
+  overflow-y: auto;
+  height: auto;
+  max-height: calc(100vh - 120px);
+  
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+  }
+}
+
+.form-title {
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.form-row {
+  margin-bottom: 16px;
+}
+
+.time-slots-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.time-slot {
+  flex: 0 0 calc(25% - 8px);
+  text-align: center;
+  padding: 8px 0;
+  background-color: var(--background-color);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: 0.9rem;
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  
+  &:hover {
+    background-color: var(--hover-bg);
+  }
+  
+  &.selected {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+  }
+  
+  &.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: var(--border-color);
+  }
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.error-message {
+  color: var(--error-color);
+  font-size: 0.85rem;
+  margin-top: 4px;
+}
+
+.form-header {
+  margin-bottom: 20px;
+  
+  h2 {
+    margin: 0 0 8px;
+    color: #3f51b5;
+    font-weight: 500;
+    font-size: 1.5rem;
+  }
+  
+  .subtitle {
+    color: #666;
+    margin: 0;
+    font-size: 0.9rem;
+  }
+}
+
+.compact-field {
+  margin-bottom: 12px;
+  
+  ::ng-deep .mat-mdc-form-field-infix {
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+}
+
+.form-section {
+  margin: 20px 0;
+  
+  h3 {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 12px;
+    color: #333;
+  }
+}
+
+.date-time-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.date-range-error {
+  display: block;
+  margin: 8px 0;
+}
+
+.color-selection {
+  margin-top: 15px;
+  
+  label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    color: rgba(0, 0, 0, 0.6);
+  }
+}
+
+.color-options {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.color-option {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  
+  &:hover {
+    transform: scale(1.1);
+  }
+  
+  &.selected {
+    box-shadow: 0 0 0 2px white, 0 0 0 4px #3f51b5;
+  }
+}
+
+.date-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+@media (max-width: 768px) {
+  .time-slot {
+    flex: 0 0 calc(33.333% - 8px);
+  }
+}
+
+@media (max-width: 480px) {
+  .time-slot {
+    flex: 0 0 calc(50% - 8px);
+  }
+  
+  .form-actions {
+    flex-direction: column;
+    
+    button {
+      width: 100%;
+    }
+  }
+}

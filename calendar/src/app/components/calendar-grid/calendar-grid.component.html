@@ -1,0 +1,94 @@
+<div class="calendar-container">
+  <div class="calendar-header">
+    <div class="month-nav">
+      <button mat-icon-button (click)="navigateMonth(-1)">
+        <mat-icon>keyboard_arrow_left</mat-icon>
+      </button>
+      <div class="month-display">{{ currentMonth }}</div>
+      <button mat-icon-button (click)="navigateMonth(1)">
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </button>
+    </div>
+    <div class="header-actions">
+      <button mat-raised-button color="primary" (click)="openAppointmentForm()">
+        <mat-icon>add</mat-icon>
+        Create Appointment
+      </button>
+      <button mat-stroked-button class="today-button" (click)="goToday()">Today</button>
+    </div>
+  </div>
+  
+  <div class="weekday-headers">
+    <div class="weekday" *ngFor="let day of weekdays">{{ day }}</div>
+  </div>
+  
+  <div class="calendar-grid" cdkDropListGroup>
+    <div class="day-cell" 
+         *ngFor="let date of dates" 
+         [class.today]="isToday(date)"
+         [class.weekend]="isWeekend(date)"
+         [class.other-month]="!isSameMonth(date, currentViewDate)"
+         [class.selected-day]="isSelectedDay(date)"
+         cdkDropList
+         [cdkDropListData]="date"
+         (cdkDropListDropped)="onAppointmentDrop($event)">
+      <div class="date-number" [class.today]="isToday(date)">{{ date.getDate() }}</div>
+      <div class="appointments-container">
+        <div *ngFor="let appointment of appointments[date.toISOString()]"
+             class="appointment-preview"
+             cdkDrag
+             [cdkDragData]="appointment"
+             [style.cursor]="'move'"
+             (click)="$event.stopPropagation()">
+          <div class="appointment-dot" [style.background-color]="appointment.color || '#1976d2'"></div>
+          <div class="appointment-title">{{ appointment.title }}</div>
+        </div>
+        <div class="add-appointment" (click)="$event.stopPropagation(); openAppointmentForm(date)">
+          <span>+</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="day-view" *ngIf="isDayViewActive">
+    <div class="day-view-header">
+      <div class="day-view-title">
+        <h2>{{ selectedDay | date:'EEEE, MMMM d, y' }}</h2>
+      </div>
+      <button mat-icon-button (click)="closeDayView()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="day-view-content">
+      <div class="day-appointments">
+        <div class="appointment-item" *ngFor="let appointment of selectedDayAppointments">
+          <div class="appointment-dot" [style.background-color]="appointment.color || '#1976d2'"></div>
+          <div class="appointment-info">
+            <div class="appointment-title">{{ appointment.title }}</div>
+            <div class="appointment-time">
+              {{ appointment.startDate | date:'h:mm a' }} - {{ appointment.endDate | date:'h:mm a' }}
+            </div>
+          </div>
+          <button mat-icon-button (click)="editAppointment(appointment)">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </div>
+      </div>
+      <div class="empty-state" *ngIf="selectedDayAppointments.length === 0">
+        <p>No appointments for this day</p>
+        <button mat-raised-button color="primary" (click)="openAppointmentFormForDay()">
+          <mat-icon>add</mat-icon>
+          Add Appointment
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <app-appointment-form
+    *ngIf="showAppointmentForm"
+    [preSelectedDate]="selectedDateForForm"
+    [appointmentToEdit]="appointmentToEdit"
+    (appointmentCreated)="onAppointmentCreated($event)"
+    (close)="closeAppointmentForm()">
+  </app-appointment-form>
+</div>

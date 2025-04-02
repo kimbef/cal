@@ -1,0 +1,101 @@
+<div class="appointment-page">
+  <form [formGroup]="appointmentForm" (ngSubmit)="onSubmit()" class="appointment-form">
+    <div class="form-header">
+      <h2>New Appointment</h2>
+      <p class="subtitle">Fill in the details to schedule your appointment</p>
+    </div>
+    
+    <mat-form-field appearance="outline" class="compact-field">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title" placeholder="Add title">
+      <mat-error *ngIf="hasError('title')">
+        {{ getErrorMessage('title') }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="compact-field">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description" rows="2" placeholder="Add description"></textarea>
+      <mat-error *ngIf="hasError('description')">
+        {{ getErrorMessage('description') }}
+      </mat-error>
+    </mat-form-field>
+
+    <div class="form-section">
+      <h3>Select Date & Time</h3>
+      <div class="date-grid">
+        <mat-form-field appearance="outline" class="compact-field">
+          <mat-label>Start Date</mat-label>
+          <input matInput [matDatepicker]="startPicker" formControlName="startDate">
+          <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+          <mat-datepicker #startPicker></mat-datepicker>
+          <mat-error *ngIf="hasError('startDate')">
+            {{ getErrorMessage('startDate') }}
+          </mat-error>
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline" class="compact-field">
+          <mat-label>End Date</mat-label>
+          <input matInput [matDatepicker]="endPicker" formControlName="endDate">
+          <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+          <mat-datepicker #endPicker></mat-datepicker>
+          <mat-error *ngIf="hasError('endDate')">
+            {{ getErrorMessage('endDate') }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+      
+      <div class="time-slots-section">
+        <div>
+          <h4>Start Time</h4>
+          <div class="time-slots">
+            <div *ngFor="let timeSlot of timeSlots" 
+                 class="time-slot" 
+                 [class.selected]="appointmentForm.get('startTime')?.value === timeSlot"
+                 (click)="selectTime('startTime', timeSlot)">
+              {{ formatTimeDisplay(timeSlot) }}
+            </div>
+          </div>
+        </div>
+        
+        <div>
+          <h4>End Time</h4>
+          <div class="time-slots">
+            <div *ngFor="let timeSlot of timeSlots" 
+                 class="time-slot" 
+                 [class.selected]="appointmentForm.get('endTime')?.value === timeSlot"
+                 (click)="selectTime('endTime', timeSlot)">
+              {{ formatTimeDisplay(timeSlot) }}
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <mat-error *ngIf="appointmentForm.hasError('dateRange')" class="date-range-error">
+        {{ getErrorMessage('dateRange') }}
+      </mat-error>
+    </div>
+
+    <div class="form-section">
+      <h3>Customize</h3>
+      <div class="color-selection">
+        <label>Appointment Color:</label>
+        <div class="color-options">
+          <div *ngFor="let color of colorOptions" 
+               [style.background-color]="color"
+               [class.selected]="appointmentForm.get('color')?.value === color"
+               (click)="selectColor(color)"
+               class="color-option">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button mat-button type="button" (click)="resetForm()">Cancel</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!appointmentForm.valid">
+        Schedule Appointment
+      </button>
+    </div>
+  </form>
+</div>

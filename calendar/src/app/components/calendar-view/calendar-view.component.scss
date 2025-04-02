@@ -1,0 +1,29 @@
+:host {
+  display: block;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+mat-tab-group {
+  height: 100%;
+  width: 100%;
+}
+
+::ng-deep {
+  .mat-mdc-tab-body-wrapper {
+    height: 100%;
+  }
+
+  .mat-mdc-tab-header {
+    background: white;
+  }
+
+  .mat-mdc-tab-body-content {
+    overflow: hidden !important;
+  }
+
+  .mat-mdc-tab-labels {
+    background-color: white;
+  }
+}

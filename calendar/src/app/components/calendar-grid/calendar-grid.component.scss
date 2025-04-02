@@ -1,0 +1,249 @@
+.calendar-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: var(--card-background);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px var(--shadow-color);
+  overflow: hidden;
+  position: relative;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background-color: var(--card-background);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.month-nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.month-display {
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: var(--primary-color);
+  text-align: center;
+  min-width: 180px;
+}
+
+.today-button {
+  font-size: 0.9rem;
+  padding: 0 16px;
+  height: 36px;
+}
+
+.weekday-headers {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  background-color: var(--card-background);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.weekday {
+  padding: 10px;
+  text-align: center;
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--text-light);
+  
+  &:nth-child(1), &:nth-child(7) {
+    color: var(--accent-color);
+  }
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-auto-rows: minmax(100px, 1fr);
+  flex: 1;
+  overflow-y: auto;
+  transition: all 0.3s ease;
+  
+  &.day-view-active {
+    grid-template-columns: 1fr;
+    margin-left: -70%;
+    width: 70%;
+  }
+}
+
+.day-cell {
+  border-right: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  padding: 10px;
+  position: relative;
+  background-color: var(--card-background);
+  overflow: hidden;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  
+  &:nth-child(7n) {
+    border-right: none;
+  }
+  
+  &:hover {
+    background-color: var(--hover-bg);
+  }
+  
+  &.weekend {
+    background-color: var(--background-color);
+  }
+  
+  &.today {
+    background-color: var(--primary-light);
+  }
+  
+  &.other-month {
+    opacity: 0.6;
+  }
+  
+  &.selected-day {
+    border: 2px solid var(--primary-color);
+  }
+}
+
+.date-number {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 0.9rem;
+  font-weight: 500;
+  
+  &.today {
+    background-color: var(--primary-color);
+    color: white;
+  }
+}
+
+.appointments-container {
+  margin-top: 28px;
+  overflow-y: auto;
+  max-height: calc(100% - 35px);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+// Day view styles
+.day-view {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 70%;
+  height: 100%;
+  background-color: var(--card-background);
+  border-left: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  z-index: 3;
+}
+
+.day-view-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid var(--border-color);
+  
+  h2 {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var(--primary-color);
+  }
+}
+
+.day-view-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+}
+
+.day-appointments {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--text-light);
+  text-align: center;
+  
+  p {
+    margin-bottom: 16px;
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .calendar-grid.day-view-active {
+    margin-left: -100%;
+    width: 100%;
+  }
+  
+  .day-view {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .month-display {
+    font-size: 1.1rem;
+    min-width: 150px;
+  }
+  
+  .weekday {
+    padding: 8px 4px;
+    font-size: 0.8rem;
+  }
+  
+  .calendar-header {
+    padding: 12px 8px;
+  }
+  
+  .day-cell {
+    padding: 8px 4px;
+  }
+}
+
+@media (max-width: 480px) {
+  .calendar-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding: 8px;
+  }
+  
+  .month-nav {
+    justify-content: center;
+  }
+  
+  .today-button {
+    align-self: center;
+  }
+  
+  .date-number {
+    width: 24px;
+    height: 24px;
+    font-size: 0.8rem;
+  }
+}

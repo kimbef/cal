@@ -1,0 +1,8 @@
+<mat-tab-group>
+  <mat-tab label="Calendar">
+    <app-calendar-grid></app-calendar-grid>
+  </mat-tab>
+  <mat-tab label="Add Appointment">
+    <app-appointment-form (appointmentAdded)="onAppointmentAdded()"></app-appointment-form>
+  </mat-tab>
+</mat-tab-group>

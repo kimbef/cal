@@ -1,0 +1,13 @@
+<div class="appointment-card" 
+     [style.borderLeftColor]="appointment.color"
+     [style.backgroundColor]="getBackgroundColor()"
+     cdkDrag 
+     [cdkDragData]="appointment.startDate" 
+     (cdkDragEnded)="onDragEnded($event)">
+  <button mat-icon-button class="delete-button" (click)="deleteAppointment()">
+    <mat-icon>close</mat-icon>
+  </button>
+  <div class="appointment-title">{{ appointment.title }}</div>
+  <div class="appointment-time">{{ appointment.startDate | date:'shortTime' }} - {{ appointment.endDate | date:'shortTime' }}</div>
+  <div class="appointment-description" *ngIf="appointment.description">{{ appointment.description }}</div>
+</div>
